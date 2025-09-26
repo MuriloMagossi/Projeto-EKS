@@ -9,20 +9,20 @@ Criar um cluster EKS com Terraform onde:
 ## Etapas para Implementação
 
 ### 1. Preparação do Ambiente Local
-- [ ] Instalar AWS CLI
-- [ ] Configurar credenciais AWS (`aws configure`)
-- [ ] Instalar Terraform
-- [ ] Instalar kubectl
-- [ ] Criar conta AWS com permissões adequadas
+- [X] Instalar AWS CLI
+- [X] Configurar credenciais AWS (`aws configure`)
+- [X] Instalar Terraform
+- [X] Instalar kubectl
+- [X] Criar conta AWS com permissões adequadas
 
 ### 2. Configuração do Estado do Terraform
-- [ ] Criar bucket S3 para armazenar o estado do Terraform
-- [ ] Habilitar versionamento no bucket S3
-- [ ] Configurar DynamoDB para lock do estado
-- [ ] Criar arquivo `backend.tf` para configurar o backend remoto
+- [X] Criar bucket S3 para armazenar o estado do Terraform
+- [X] Habilitar versionamento no bucket S3
+- [X] Configurar DynamoDB para lock do estado
+- [X] Criar arquivo `backend.tf` para configurar o backend remoto
 
 ### 3. Estrutura do Projeto Terraform
-- [ ] Criar estrutura de diretórios do projeto
+- [X] Criar estrutura de diretórios do projeto
 - [ ] Configurar `main.tf` com providers (AWS, Kubernetes)
 - [ ] Criar `variables.tf` com variáveis necessárias
 - [ ] Criar `outputs.tf` com outputs importantes
