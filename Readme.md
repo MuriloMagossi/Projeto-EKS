@@ -23,15 +23,15 @@ Criar um cluster EKS com Terraform onde:
 
 ### 3. Estrutura do Projeto Terraform
 - [X] Criar estrutura de diretórios do projeto
-- [ ] Configurar `main.tf` com providers (AWS, Kubernetes)
+- [X] Configurar `main.tf` com providers (AWS, Kubernetes)
 - [ ] Criar `variables.tf` com variáveis necessárias
 - [ ] Criar `outputs.tf` com outputs importantes
 - [ ] Configurar `terraform.tfvars` com valores específicos
 
 ### 4. Infraestrutura de Rede
-- [ ] Criar VPC com CIDR apropriado
-- [ ] Criar subnets públicas (para ALB e NAT Gateway)
-- [ ] Criar subnets privadas (para nós do EKS)
+- [X] Criar VPC com CIDR apropriado
+- [X] Criar subnets públicas (para ALB e NAT Gateway)
+- [X] Criar subnets privadas (para nós do EKS)
 - [ ] Configurar Internet Gateway
 - [ ] Configurar NAT Gateway para subnets privadas
 - [ ] Configurar Route Tables
