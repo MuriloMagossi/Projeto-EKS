@@ -24,38 +24,21 @@ Criar um cluster EKS com Terraform onde:
 ### 3. Estrutura do Projeto Terraform
 - [X] Criar estrutura de diretórios do projeto
 - [X] Configurar `main.tf` com providers (AWS, Kubernetes)
-- [ ] Criar `variables.tf` com variáveis necessárias
-- [ ] Criar `outputs.tf` com outputs importantes
-- [ ] Configurar `terraform.tfvars` com valores específicos
+- [X] Criar `variables.tf`
+- [X] Criar `outputs.tf`
 
 ### 4. Infraestrutura de Rede
 - [X] Criar VPC com CIDR apropriado
 - [X] Criar subnets públicas (para ALB e NAT Gateway)
 - [X] Criar subnets privadas (para nós do EKS)
-- [ ] Configurar Internet Gateway
-- [ ] Configurar NAT Gateway para subnets privadas
-- [ ] Configurar Route Tables
-
-### 5. Segurança e IAM
-- [ ] Criar roles IAM para EKS Cluster
-- [ ] Criar roles IAM para EKS Node Groups
-- [ ] Configurar Security Groups para cluster e nós
-- [ ] Configurar Security Groups para ALB
-- [ ] Criar policies IAM necessárias
+- [X] Configurar Internet Gateway
+- [X] Configurar NAT Gateway para subnets privadas
+- [X] Configurar Route Tables
 
 ### 6. Cluster EKS
-- [ ] Criar cluster EKS com configurações de segurança
-- [ ] Configurar logging do cluster (CloudWatch)
-- [ ] Criar node groups nas subnets privadas
-- [ ] Configurar auto-scaling groups para os nós
-- [ ] Instalar AWS Load Balancer Controller
+- [] 
 
 ### 7. Application Load Balancer (ALB)
-- [ ] Criar ALB nas subnets públicas
-- [ ] Configurar target groups
-- [ ] Configurar listeners e rules
-- [ ] Criar ingress controller para Kubernetes
-- [ ] Configurar certificados SSL/TLS (opcional)
 
 ### 8. Pipeline GitHub Actions
 - [ ] Criar secrets no GitHub (AWS credentials)
@@ -73,7 +56,6 @@ Criar um cluster EKS com Terraform onde:
 
 ### 10. Documentação e Monitoramento
 - [ ] Documentar comandos kubectl essenciais
-- [ ] Configurar CloudWatch monitoring
 - [ ] Criar dashboards de monitoramento
 - [ ] Documentar processo de troubleshooting
 
