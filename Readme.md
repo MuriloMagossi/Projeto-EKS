@@ -36,9 +36,10 @@ Criar um cluster EKS com Terraform onde:
 - [X] Configurar Route Tables
 
 ### 6. Cluster EKS
-- [] 
+- [ ] 
 
 ### 7. Application Load Balancer (ALB)
+- [ ] 
 
 ### 8. Pipeline GitHub Actions
 - [ ] Criar secrets no GitHub (AWS credentials)
