@@ -26,11 +26,12 @@ jobs:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           # Defina a sua região da AWS
-          aws-region: sa-east-1
+          aws-region: us-east-1
+      - name: HashiCorp - Setup Terraform
+        uses: hashicorp/setup-terraform@v3.1.2
       - name: Terraform Init
         run: terraform init 
       - name: Terraform Plan
         run: terraform plan    
-
       - name: Terraform Apply
-        run: terraform apply
+        run: terraform apply -auto-approve tfplan
