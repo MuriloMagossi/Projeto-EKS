@@ -28,34 +28,6 @@ jobs:
           # Defina a sua região da AWS
           aws-region: sa-east-1
 
-      - name: Create and Configure S3 Backend Bucket
-        run: |
-            # Define as variáveis para o bucket
-            BUCKET_NAME="terraform-state-eks-magossi"
-            AWS_REGION="sa-east-1"
-            
-            echo "Tentando criar o bucket ${BUCKET_NAME}..."
-            aws s3api create-bucket \
-              --bucket ${BUCKET_NAME} \
-              --region ${AWS_REGION} \
-              --create-bucket-configuration LocationConstraint=${AWS_REGION} || true
-            
-            echo "Configurando bloqueio de acesso público..."
-            aws s3api put-public-access-block \
-              --bucket ${BUCKET_NAME} \
-              --public-access-block-configuration "BlockPublicAcls=true,IgnorePublicAcls=true,BlockPublicPolicy=true,RestrictPublicBuckets=true"
-            
-            echo "Ativando versionamento..."
-            aws s3api put-bucket-versioning \
-              --bucket ${BUCKET_NAME} \
-              --versioning-configuration Status=Enabled
-              
-            echo "Ativando criptografia padrão..."
-            aws s3api put-bucket-encryption \
-              --bucket ${BUCKET_NAME} \
-              --server-side-encryption-configuration '{"Rules": [{"ApplyServerSideEncryptionByDefault": {"SSEAlgorithm": "AES256"}}]}'
-              
-             echo "Bucket S3 configurado com sucesso!"
 
       - name: Create and configure DynamoDB
         run: |
