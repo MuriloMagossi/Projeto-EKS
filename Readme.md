@@ -36,7 +36,8 @@ Criar um cluster EKS com Terraform onde:
 - [X] Configurar Route Tables
 
 ### 6. Cluster EKS
-- [ ] 
+- [X] modelar main eks
+- [X] configurar VPC e Subnets
 
 ### 7. Application Load Balancer (ALB)
 - [ ] 

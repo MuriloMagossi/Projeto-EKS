@@ -1,5 +1,5 @@
 BUCKET_NAME="terraform-state-eks-magossi"
-AWS_REGION="sa-east-1"
+AWS_REGION="us-east-1"
 
 # Criar o bucket
 aws s3api create-bucket \
