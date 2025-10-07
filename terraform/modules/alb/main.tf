@@ -1,5 +1,5 @@
 module "alb" {
-  source = "terraform-aws-modules/alb/aws"
+  source  = "terraform-aws-modules/alb/aws"
   version = ">= 9.0"
 
   name    = "my-alb"
@@ -23,6 +23,7 @@ module "alb" {
       cidr_ipv4   = "0.0.0.0/0"
     }
   }
+
   security_group_egress_rules = {
     all = {
       ip_protocol = "-1"
@@ -31,7 +32,7 @@ module "alb" {
   }
 
   access_logs = {
-    bucket = "terraform-state-eks-magossi" 
+    bucket = "terraform-state-eks-magossi"
   }
 
   listeners = {
@@ -44,11 +45,11 @@ module "alb" {
         status_code = "HTTP_301"
       }
     }
+
     ex-https = {
       port            = 443
       protocol        = "HTTPS"
-      certificate_arn = "arn:aws:iam::123456789012:server-certificate/test_cert-123456789012" #TODO: Alterar para o certificado do ALB
-
+      certificate_arn = "arn:aws:iam::123456789012:server-certificate/test_cert-123456789012" # TODO: Alterar para o certificado real
       forward = {
         target_group_key = "ex-instance"
       }
@@ -57,18 +58,20 @@ module "alb" {
 
   target_groups = {
     ex-instance = {
-      name_prefix      = "h1"
-      protocol         = "HTTP"
-      port             = 80
-      target_type      = "ip"
-      health_check = { #não vai estar sendo usado no momento, pois nosso eks está vazio
-      path                = "/"
-      protocol            = "HTTP"
-      matcher             = "200"
-      interval            = 30
-      timeout             = 5
-      healthy_threshold   = 3
-      unhealthy_threshold = 3
+      name_prefix = "h1"
+      protocol    = "HTTP"
+      port        = 80
+      target_type = "ip"  # Alterado para IP
+
+      health_check = {
+        path                = "/"
+        protocol            = "HTTP"
+        matcher             = "200"
+        interval            = 30
+        timeout             = 5
+        healthy_threshold   = 3
+        unhealthy_threshold = 3
+      }
     }
   }
 
