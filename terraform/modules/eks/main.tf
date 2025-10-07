@@ -3,24 +3,44 @@ module "eks" {
   version = "~> 21.0"
 
   name               = "meu-eks"
-  kubernetes_version = "~> 2.23"
+  kubernetes_version = "1.29"
 
-  # Optional
+  # Opcional
   endpoint_public_access = true
 
-  # Optional: Adds the current caller identity as an administrator via cluster access entry
+  # Opcional: Adiciona a identidade do chamador atual como administrador via entrada de acesso do cluster
   enable_cluster_creator_admin_permissions = true
 
-  compute_config = {
-    enabled    = true
-    node_pools = ["general-purpose"]
+  # Habilitar IRSA para service accounts
+  enable_irsa = true
+
+  vpc_id     = var.vpc_id
+  subnet_ids = var.private_subnet_ids
+
+  # Grupos de nós gerenciados
+  eks_managed_node_groups = {
+    general = {
+      name = "general-purpose"
+
+      instance_types = ["t3.medium"]
+
+      min_size     = 1
+      max_size     = 3
+      desired_size = 2
+
+      vpc_security_group_ids = []
+    }
   }
 
-  vpc_id     = "vpc-0298439287506220b"
-  subnet_ids = ["subnet-09656565656565656", "subnet-09656565656565656", "subnet-09656565656565656"]
-
-  tags = {
+  tags = merge(var.common_tags, {
     Environment = "dev"
     Terraform   = "true"
-  }
+  })
 }
+
+#Nome
+#Versão
+#perfil do IAM do cluster
+#perfil IAM do nó
+#VPC
+#Subnets

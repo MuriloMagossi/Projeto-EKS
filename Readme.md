@@ -14,6 +14,7 @@ Criar um cluster EKS com Terraform onde:
 - [X] Instalar Terraform
 - [X] Instalar kubectl
 - [X] Criar conta AWS com permissões adequadas
+- [X] Vincular projeto a conta do GitHub
 
 ### 2. Configuração do Estado do Terraform
 - [X] Criar bucket S3 para armazenar o estado do Terraform
@@ -40,12 +41,18 @@ Criar um cluster EKS com Terraform onde:
 - [X] configurar VPC e Subnets
 
 ### 7. Application Load Balancer (ALB)
-- [ ] 
+- [X] Criar módulo ALB com terraform-aws-modules/alb/aws
+- [X] Configurar Security Groups para HTTP/HTTPS
+- [X] Configurar listeners HTTP (redirecionamento para HTTPS)
+- [X] Configurar listener HTTPS com certificado SSL
+- [X] Configurar Target Groups para balanceamento
+- [X] Integrar ALB com subnets públicas da VPC
+- [X] Configurar logs de acesso do ALB
 
 ### 8. Pipeline GitHub Actions
-- [ ] Criar secrets no GitHub (AWS credentials)
-- [ ] Criar workflow `.github/workflows/terraform.yml`
-- [ ] Configurar stages: plan, apply, destroy
+- [X] Criar secrets no GitHub (AWS credentials)
+- [X] Criar workflow `.github/workflows/terraform.yml`
+- [X] Configurar stages: plan, apply
 - [ ] Configurar approval manual para apply
 - [ ] Configurar notificações de status
 
