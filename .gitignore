@@ -1,0 +1,77 @@
+# Arquivos de estado do Terraform
+*.tfstate
+*.tfstate.*
+*.tfstate.backup
+
+# Arquivos de lock do Terraform
+.terraform.lock.hcl
+
+# Diretório de plugins do Terraform
+.terraform/
+.terraform.lock.hcl
+
+# Arquivos de variáveis sensíveis
+*.tfvars
+*.tfvars.json
+
+# Arquivos de override
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+
+# Arquivos de crash
+crash.log
+crash.*.log
+
+# Arquivos de plan
+*.tfplan
+
+# Arquivos de backup
+*.backup
+*.bak
+
+# Arquivos temporários
+*.tmp
+*.temp
+
+# Logs
+*.log
+
+# Arquivos específicos do sistema operacional
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Arquivos do IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Arquivos de configuração local
+.env
+.env.local
+.env.*.local
+
+# Arquivos de cache
+.cache/
+*.cache
+
+# Arquivos de build
+dist/
+build/
+target/
+
+# Arquivos de dependências
+node_modules/
+vendor/
+
+# Arquivos específicos do projeto
+encryption-config.json
+create-aws-resources.bat
