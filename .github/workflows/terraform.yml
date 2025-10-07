@@ -1,12 +1,9 @@
-name: AWS Lab Workflow
+name: Manual AWS Lab Workflow
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
     inputs:
       action:
-        description: 'Ação a ser executada'
+        description: 'Qual ação você quer executar?'
         required: true
         default: 'apply'
         type: choice
@@ -20,28 +17,30 @@ jobs:
   plan:
     name: Terraform Plan
     runs-on: ubuntu-latest
-    
+    outputs:
+      action: ${{ github.event.inputs.action }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
-
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
-
       - name: Setup Terraform
         uses: hashicorp/setup-terraform@v3
-
       - name: Terraform Init
-        run: terraform init 
+        run: terraform init --upgrade
+        working-directory: ./terraform
+      - name: Create Terraform Plan for Apply
+        if: github.event.inputs.action == 'apply'
+        run: terraform plan -no-color -out=tfplan
         working-directory: ./terraform
 
-      - name: Terraform Plan
-        id: plan
-        run: terraform plan -no-color -out=tfplan
+      - name: Create Terraform Plan for Destroy
+        if: github.event.inputs.action == 'destroy'
+        run: terraform plan -destroy -no-color -out=tfplan
         working-directory: ./terraform
 
       - name: Upload Terraform Plan
@@ -49,23 +48,14 @@ jobs:
         with:
           name: tfplan
           path: ./terraform/tfplan
-
-  wait-for-apply-approval:
-    name: Wait for Apply Approval
+  execute:
+    name: Approve and Execute Terraform
     runs-on: ubuntu-latest
-    if: github.event_name == 'push' || (github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'apply')
-    needs: [plan]
+    needs: plan
     environment: 
-      name: production-apply
-    steps:
-      - name: Approval gate
-        run: echo "Aprovação para APPLY concedida. Prosseguindo..."
+      name: production
+      url: 'https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}'
 
-  apply:
-    name: Terraform Apply
-    runs-on: ubuntu-latest
-    needs: [wait-for-apply-approval]
-    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -90,44 +80,6 @@ jobs:
         run: terraform init
         working-directory: ./terraform
 
-      - name: Terraform Apply
+      - name: Terraform Execute
         run: terraform apply -auto-approve tfplan
-        working-directory: ./terraform
-
-  wait-for-destroy-approval:
-    name: Wait for Destroy Approval
-    runs-on: ubuntu-latest
-    if: github.event_name == 'workflow_dispatch' && github.event.inputs.action == 'destroy'
-    needs: [plan] # Opcional: pode gerar um plano de destroy antes de aprovar
-    environment:
-      name: production-destroy
-    steps:
-      - name: Approval gate
-        run: echo "Aprovação para DESTROY concedida. Prosseguindo..."
-
-  destroy:
-    name: Terraform Destroy
-    runs-on: ubuntu-latest
-    needs: [wait-for-destroy-approval]
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      - name: Configure AWS Credentials
-        uses: aws-actions/configure-aws-credentials@v4
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-east-1
-
-      - name: Setup Terraform
-        uses: hashicorp/setup-terraform@v3
-        
-      - name: Terraform Init
-        run: terraform init
-        working-directory: ./terraform
-        
-      - name: Terraform Destroy
-        run: terraform destroy -auto-approve
         working-directory: ./terraform

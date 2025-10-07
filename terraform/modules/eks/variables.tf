@@ -5,7 +5,7 @@ variable "common_tags" {
 }
 
 variable "vpc_id" {
-  description = "ID da VPC onde o EKS será criado"
+  description = "ID da VPC onde o EKS sera criado"
   type        = string
 }
 

@@ -53,7 +53,7 @@ Criar um cluster EKS com Terraform onde:
 - [X] Criar secrets no GitHub (AWS credentials)
 - [X] Criar workflow `.github/workflows/terraform.yml`
 - [X] Configurar stages: plan, apply
-- [ ] Configurar approval manual para apply
+- [X] Configurar approval manual para apply
 - [ ] Configurar notificações de status
 
 ### 9. Testes e Validação

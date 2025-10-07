@@ -12,14 +12,14 @@ module "alb" {
       from_port   = 80
       to_port     = 80
       ip_protocol = "tcp"
-      description = "Tráfego web HTTP"
+      description = "Trafego web HTTP"
       cidr_ipv4   = "0.0.0.0/0"
     }
     all_https = {
       from_port   = 443
       to_port     = 443
       ip_protocol = "tcp"
-      description = "Tráfego web HTTPS"
+      description = "Trafego web HTTPS"
       cidr_ipv4   = "0.0.0.0/0"
     }
   }

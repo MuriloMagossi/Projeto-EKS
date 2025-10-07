@@ -26,16 +26,16 @@ output "private_subnets_cidr_blocks" {
   value       = module.vpc.private_subnets_cidr_blocks
 }
 output "public_subnets" {
-  description = "Lista de IDs das subnets públicas"
+  description = "Lista de IDs das subnets publicas"
   value       = module.vpc.public_subnets
 }
 
 output "public_subnet_arns" {
-  description = "Lista de ARNs das subnets públicas"
+  description = "Lista de ARNs das subnets publicas"
   value       = module.vpc.public_subnet_arns
 }
 
 output "public_subnets_cidr_blocks" {
-  description = "Lista de blocos CIDR das subnets públicas"
+  description = "Lista de blocos CIDR das subnets publicas"
   value       = module.vpc.public_subnets_cidr_blocks
 }

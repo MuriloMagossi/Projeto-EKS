@@ -9,7 +9,7 @@ output "cluster_endpoint" {
 }
 
 output "cluster_certificate_authority_data" {
-  description = "Dados do certificado CA codificados em Base64 necessários para comunicação com o cluster"
+  description = "Dados do certificado CA codificados em Base64 necessários para comunicacao com o cluster"
   value       = module.eks.cluster_certificate_authority_data
   sensitive   = true
 }
