@@ -37,10 +37,3 @@ module "eks" {
     Terraform   = "true"
   })
 }
-
-#Nome
-#Versão
-#perfil do IAM do cluster
-#perfil IAM do nó
-#VPC
-#Subnets
