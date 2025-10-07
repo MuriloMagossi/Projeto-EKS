@@ -60,8 +60,15 @@ module "alb" {
       name_prefix      = "h1"
       protocol         = "HTTP"
       port             = 80
-      target_type      = "instance"
-      target_id        = "i-0f6d38a07d50d080f" #TODO: Alterar para o ID do nó do EKS
+      target_type      = "ip"
+      health_check = { #não vai estar sendo usado no momento, pois nosso eks está vazio
+      path                = "/"
+      protocol            = "HTTP"
+      matcher             = "200"
+      interval            = 30
+      timeout             = 5
+      healthy_threshold   = 3
+      unhealthy_threshold = 3
     }
   }
 
