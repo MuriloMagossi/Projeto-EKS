@@ -56,25 +56,25 @@ module "alb" {
     }
   }
 
-  target_groups = {
-    ex-instance = {
-      name_prefix = "h1"
-      protocol    = "HTTP"
-      port        = 80
-      target_type = "ip"
-      targets     = []
+#   target_groups = {
+#     ex-instance = {
+#       name_prefix = "h1"
+#       protocol    = "HTTP"
+#       port        = 80
+#       target_type = "ip"
+#       targets     = []
 
-      health_check = {
-        path                = "/"
-        protocol            = "HTTP"
-        matcher             = "200"
-        interval            = 30
-        timeout             = 5
-        healthy_threshold   = 3
-        unhealthy_threshold = 3
-      }
-    }
-  }
+#       health_check = {
+#         path                = "/"
+#         protocol            = "HTTP"
+#         matcher             = "200"
+#         interval            = 30
+#         timeout             = 5
+#         healthy_threshold   = 3
+#         unhealthy_threshold = 3
+#       }
+#     }
+#  }
 
   tags = merge(var.common_tags, {
     Environment = "dev"
