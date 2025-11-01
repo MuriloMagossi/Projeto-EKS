@@ -102,3 +102,4 @@ kubectl get pods --all-namespaces
 - O ALB ficará em subnets públicas para acesso externo
 - Use sempre tags adequadas para organização e billing
 - Configure backup e disaster recovery conforme necessário
+sim
