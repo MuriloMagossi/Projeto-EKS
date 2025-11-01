@@ -1,0 +1,87 @@
+name: Terraform Test
+
+on:
+  pull_request:
+    branches:
+      - main
+    paths:
+      - 'terraform/**'
+      - '.github/workflows/test-terraform.yaml'
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:
+  terraform-test:
+    name: Terraform Validation and Plan
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: latest
+
+      - name: Terraform Format Check
+        id: fmt
+        run: terraform fmt -check -recursive
+        working-directory: ./terraform
+        continue-on-error: true
+
+      - name: Terraform Format Fail
+        if: steps.fmt.outcome == 'failure'
+        run: |
+          echo "::error::Terraform files are not properly formatted. Run 'terraform fmt -recursive' to fix."
+          exit 1
+
+      - name: Terraform Init
+        run: terraform init -upgrade
+        working-directory: ./terraform
+
+      - name: Terraform Validate
+        id: validate
+        run: terraform validate -no-color
+        working-directory: ./terraform
+        continue-on-error: true
+
+      - name: Terraform Validate Fail
+        if: steps.validate.outcome == 'failure'
+        run: |
+          echo "::error::Terraform validation failed. Please check your configuration."
+          exit 1
+
+      - name: Terraform Plan
+        id: plan
+        run: terraform plan -no-color -refresh=false
+        working-directory: ./terraform
+        continue-on-error: true
+
+      - name: Terraform Plan Fail
+        if: steps.plan.outcome == 'failure'
+        run: |
+          echo "::error::Terraform plan failed. Please check your configuration."
+          exit 1
+
+      - name: Plan Status
+        if: always()
+        run: |
+          if [ "${{ steps.fmt.outcome }}" == "success" ] && \
+             [ "${{ steps.validate.outcome }}" == "success" ] && \
+             [ "${{ steps.plan.outcome }}" == "success" ]; then
+            echo "✅ All Terraform checks passed!"
+          else
+            echo "❌ Some Terraform checks failed!"
+            exit 1
+          fi
+
